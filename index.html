@@ -1,0 +1,261 @@
+<script>
+
+
+var combina = [];
+
+var contador, vezes = 30, g;
+
+function gerar(){
+	
+gerar_combinacao();
+g = setInterval(mostrar,100);
+contador = 0;
+
+document.getElementById("c1").style.border = 'none';
+document.getElementById("c2").style.border = 'none';
+document.getElementById("c3").style.border = 'none';
+document.getElementById("c4").style.border = 'none';
+document.getElementById("c5").style.border = 'none';
+document.getElementById("c6").style.border = 'none';
+}
+
+function mostrar(){
+contador++;
+ 
+ 
+   if(contador>vezes){
+	document.getElementById("p1").innerHTML = combina[0].n1;
+	document.getElementById("c1").style.border = '5px solid rgba(0,0,0,0.3)';
+   } else {
+	document.getElementById("p1").innerHTML = sortear_numero();  
+   }
+   
+   if(contador>(vezes+2)){
+	document.getElementById("p2").innerHTML = combina[0].n2;
+	document.getElementById("c2").style.border = '5px solid rgba(0,0,0,0.3)';
+   } else {
+	document.getElementById("p2").innerHTML = sortear_numero(); 
+   }
+   
+    if(contador>(vezes+4)){
+	document.getElementById("p3").innerHTML = combina[0].n3;
+	document.getElementById("c3").style.border = '5px solid rgba(0,0,0,0.3)';
+   } else {
+	document.getElementById("p3").innerHTML = sortear_numero(); 
+   }
+  
+    if(contador>(vezes+6)){
+	document.getElementById("p4").innerHTML = combina[0].n4;
+	document.getElementById("c4").style.border = '5px solid rgba(0,0,0,0.3)';
+   } else {
+	document.getElementById("p4").innerHTML = sortear_numero(); 
+   }
+   
+     if(contador>(vezes+8)){
+	document.getElementById("p5").innerHTML = combina[0].n5;
+	document.getElementById("c5").style.border = '5px solid rgba(0,0,0,0.3)';
+   } else {
+	document.getElementById("p5").innerHTML = sortear_numero(); 
+   }
+   
+   if(contador>(vezes+10)){
+	document.getElementById("p6").innerHTML = combina[0].n6;
+	document.getElementById("c6").style.border = '5px solid rgba(0,0,0,0.3)';
+	clearInterval(g);
+   } else {
+	document.getElementById("p6").innerHTML = sortear_numero(); 
+   }
+
+   
+
+	
+}
+
+
+/* funcao que gera uma combinacao */
+
+function gerar_combinacao(){
+
+var comb = [], final;
+
+
+ for(var i=0; i<6; i++){
+	 
+   var sort = sortear_numero();
+
+    for(var j=0; j<i; j++) {
+    
+	    if(comb[j]==sort){
+	     sort = sortear_numero();
+		 j=-1;
+		}
+	
+    }
+	
+	comb.push(sort);
+ }
+
+
+/* ordenando os numeros */
+
+final = ordenar(comb.join(".")).split(".");
+
+/* criando objeto para armazenar o numeros sorteados */
+combina[0] = new Inserir(
+final[0],
+final[1],
+final[2],
+final[3],
+final[4],
+final[5]
+);
+
+}
+
+
+
+/* constructor do objeto combinacao */
+function Inserir(n1,n2,n3,n4,n5,n6){
+
+this.n1 = n1;
+this.n2 = n2;
+this.n3 = n3;
+this.n4 = n4;
+this.n5 = n5;
+this.n6 = n6;
+
+}
+
+/* Sorteia um número inteiro entre 1 e 60 */
+function sortear_numero(){
+
+return (Math.round(Math.random()*59)+1);	
+	
+}
+
+
+
+
+/* ordenar array de números */
+function ordenar(string){ // recebe array como string
+
+var array = string.split("."); // refaz a array
+
+
+  for(var j=0; j<array.length; j++) { // parte para ordenar
+  
+    for(var i=(j+1); i<array.length; i++){
+
+        if((array[j]/10)>(array[i]/10)) {  
+
+            var troca = array[j];
+
+            array[j] = array[i];
+            array[i] = troca;
+
+
+
+		}
+
+	}
+  }
+
+
+return array.join("."); // devolve como string
+
+}
+
+
+</script>
+
+<style>
+
+#campo{
+width: auto;
+height: auto;
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%,-50%);
+border: 1px solid rgba(0,0,0,0.2);
+}
+
+#circ{
+width: auto;
+height: auto;
+background-color: rgba(0,0,0,0.05);
+position: relative;
+border-bottom: none;
+}
+
+#titulo{
+width: 100%;
+height: 50px;
+background-color: rgba(0,0,0,0.1);
+position: relative;
+}
+
+#titu{
+font-family: Arial;
+color: rgba(0,0,0,0.8);
+font-size: 30px;
+position: absolute;
+top: -20px;
+left: 70px;
+}
+
+.c{
+width: 80px;
+height: 80px;
+margin: 10px;
+position: relative;
+display: inline-block;
+background-color: #209869;
+border-radius: 50%;
+box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+transition: border 0.5s;
+}
+
+.num{
+font-family: Arial;
+color: #ffffff;
+font-size: 50px;
+position: absolute;
+left: 50%;
+top: 0px;
+transform: translate(-50%,-65%);
+}
+
+#botao{
+position: relative;
+height: 50px;
+background-color: rgba(0,0,0,0.1);
+box-shadow: 0px -1px 1px rgba(0,0,0,0.2);
+}
+
+#bg{
+width: 100%;
+height: 100%;
+background-color: none;
+outline: none;
+border: none;
+font-size: 20px;
+}
+
+#bg:hover{
+background-color: #209869;
+color: #ffffff;
+}
+</style>
+<div id="campo">
+  <div id="titulo"><p id="titu">Gerador de números da Mega-sena</p></div>
+  <div id="circ">
+  <div class="c" id="c1"><p class="num" id="p1"><p></div>
+  <div class="c" id="c2"><p class="num" id="p2"><p></div>
+  <div class="c" id="c3"><p class="num" id="p3"><p></div>
+  <div class="c" id="c4"><p class="num" id="p4"><p></div>
+  <div class="c" id="c5"><p class="num" id="p5"><p></div>
+  <div class="c" id="c6"><p class="num" id="p6"><p></div>
+</div>
+  <div id="botao"><button id="bg" onclick="gerar()">Gerar</button></div>
+</div>
