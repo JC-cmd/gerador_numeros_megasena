@@ -11,18 +11,15 @@ gerar_combinacao();
 g = setInterval(mostrar,100);
 contador = 0;
 
-document.getElementById("c1").style.border = 'none';
-document.getElementById("c2").style.border = 'none';
-document.getElementById("c3").style.border = 'none';
-document.getElementById("c4").style.border = 'none';
-document.getElementById("c5").style.border = 'none';
-document.getElementById("c6").style.border = 'none';
+for(var j=1; j<=6; j++) document.getElementById("c"+j).style.border = 'none';
+
 }
 
 function mostrar(){
 contador++;
  
  
+	
    if(contador>vezes){
 	document.getElementById("p1").innerHTML = combina[0].n1;
 	document.getElementById("c1").style.border = '5px solid rgba(0,0,0,0.3)';
